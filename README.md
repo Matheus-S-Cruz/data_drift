@@ -136,3 +136,37 @@ Basta abrir os arquivos `.html` em qualquer navegador. (No VS Code, a extensão
 - Retreinar o modelo com dados recentes quando o drift for significativo.
 - Verificar a origem de valores ausentes no pipeline de dados.
 - Manter o monitoramento contínuo das distribuições.
+
+## Parecer Técnico — Impacto do Drift no Modelo
+
+Com base na execução atual da análise (`data/drift_summary.json`), **4 das 5
+variáveis monitoradas apresentaram drift (80%)**, caracterizando uma mudança
+severa no perfil dos dados de produção em relação à referência.
+
+**Variáveis com drift detectado (p-valor < 0.05):**
+
+- **`temperature`** (KS ≈ 0.82): deslocamento forte da distribuição (onda de
+  calor, +9 °C na média). Variável central em modelos climáticos — alto impacto.
+- **`humidity`** (KS ≈ 0.70): queda expressiva da umidade (cenário de seca).
+- **`precipitation`** (KS ≈ 0.49): redução acentuada da precipitação.
+- **`sky_condition`** (Qui-quadrado ≈ 747): inversão do padrão de céu — a
+  referência é dominada por `clear` (60%) e a produção por `rainy` (60%).
+
+**Variável estável:**
+
+- **`wind_speed`** (p ≈ 0.57): sem evidência de mudança; distribuição preservada.
+
+**Valores ausentes:** `temperature` apresenta **5% de registros ausentes** em
+produção. Como é justamente uma das variáveis com maior drift, a ausência de
+dados agrava o risco e exige atenção no pipeline de ingestão.
+
+**Impacto esperado no modelo:** um modelo treinado com os dados de referência
+tende a **degradar significativamente** em produção, pois opera fora da faixa de
+distribuição aprendida para temperatura, umidade, precipitação e condição do
+céu. Previsões e fronteiras de decisão aprendidas deixam de refletir a realidade
+atual.
+
+**Recomendação:** dado o drift em 80% das variáveis — incluindo as de maior
+relevância — **recomenda-se investigar as causas e retreinar o modelo** com
+dados recentes, além de tratar a origem dos valores ausentes de `temperature` e
+estabelecer monitoramento contínuo de distribuição.
