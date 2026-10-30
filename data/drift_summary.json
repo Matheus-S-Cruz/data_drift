@@ -1,0 +1,120 @@
+{
+  "execution_datetime": "2026-10-30T13:53:43",
+  "n_reference_records": 1000,
+  "n_current_records": 1000,
+  "alpha": 0.05,
+  "results": [
+    {
+      "variable": "temperature",
+      "type": "numeric",
+      "test": "Kolmogorov-Smirnov (KS-Test)",
+      "statistic": 0.820105,
+      "p_value": 0.0,
+      "has_drift": true,
+      "status": "DRIFT DETECTADO",
+      "missing": {
+        "reference": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "current": {
+          "count": 50,
+          "percent": 5.0
+        }
+      }
+    },
+    {
+      "variable": "humidity",
+      "type": "numeric",
+      "test": "Kolmogorov-Smirnov (KS-Test)",
+      "statistic": 0.702,
+      "p_value": 0.0,
+      "has_drift": true,
+      "status": "DRIFT DETECTADO",
+      "missing": {
+        "reference": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "current": {
+          "count": 0,
+          "percent": 0.0
+        }
+      }
+    },
+    {
+      "variable": "wind_speed",
+      "type": "numeric",
+      "test": "Kolmogorov-Smirnov (KS-Test)",
+      "statistic": 0.035,
+      "p_value": 0.57289,
+      "has_drift": false,
+      "status": "Estável",
+      "missing": {
+        "reference": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "current": {
+          "count": 0,
+          "percent": 0.0
+        }
+      }
+    },
+    {
+      "variable": "precipitation",
+      "type": "numeric",
+      "test": "Kolmogorov-Smirnov (KS-Test)",
+      "statistic": 0.486,
+      "p_value": 0.0,
+      "has_drift": true,
+      "status": "DRIFT DETECTADO",
+      "missing": {
+        "reference": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "current": {
+          "count": 0,
+          "percent": 0.0
+        }
+      }
+    },
+    {
+      "variable": "sky_condition",
+      "type": "categorical",
+      "test": "Qui-quadrado (Chi-square)",
+      "statistic": 747.065715,
+      "p_value": 0.0,
+      "degrees_of_freedom": 2,
+      "has_drift": true,
+      "status": "DRIFT DETECTADO",
+      "missing": {
+        "reference": {
+          "count": 0,
+          "percent": 0.0
+        },
+        "current": {
+          "count": 0,
+          "percent": 0.0
+        }
+      },
+      "distribution": {
+        "reference": {
+          "clear": 63.0,
+          "cloudy": 29.0,
+          "rainy": 8.0
+        },
+        "current": {
+          "clear": 11.4,
+          "cloudy": 29.5,
+          "rainy": 59.1
+        }
+      }
+    }
+  ],
+  "n_variables_analyzed": 5,
+  "n_variables_with_drift": 4,
+  "drift_percentage": 80.0,
+  "conclusion": "4 de 5 variáveis apresentaram drift (80.0%). É fortemente recomendado investigar as causas e retreinar o modelo com dados atualizados."
+}
